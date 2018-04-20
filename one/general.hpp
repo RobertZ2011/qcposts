@@ -6,7 +6,7 @@ typedef std::complex<float> Complex;
 typedef Eigen::Matrix<Complex, Eigen::Dynamic, 1> Vector;
 typedef Eigen::SparseMatrix<Complex> Matrix;
 
-inline constexpr int pow2(int exp) {
+constexpr int pow2(int exp) {
     return (exp == 0) ? 1 : 2 * pow2(exp - 1);
 }
 
