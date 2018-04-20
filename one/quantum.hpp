@@ -4,13 +4,10 @@ class State {
 private:
     Vector state;
     int NQUBITS;
-    std::random_device rd;
-    std::mt19937_64 generator;
-    std::uniform_real_distribution<T> distribution;
 
 public:
-    State(int NQUBITS, const Vector& state) : this->state(state), this->NQUBITS(NQUBITS) {
-        assert();
+    State(int NQUBITS, const Vector& state) : state(state), NQUBITS(NQUBITS) {
+        assert(state.rows() == pow2(NQUBITS));
     }
 
     ~State(void) {
@@ -18,6 +15,12 @@ public:
     }
 
     void showOutcomes(void) {
-        Vector probabilities = this->state.array() * this->state.conjugate().array();
+        Vector probabilities  = this->state.array() * this->state.conjugate().array();
+
+        printf("State | Percentage\n");
+        for(int i = 0; i < this->state.rows(); i++) {
+            printBin(i, this->NQUBITS);
+            printf(" | %.2f\n", (float) probabilities[i].real() * 100.0);
+        }
     }
-}
+};

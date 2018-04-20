@@ -3,8 +3,23 @@
 #include <Eigen/KroneckerProduct>
 
 typedef std::complex<float> Complex;
-typedef Eigen::Matrix<Complex, Dynamic, 1> Vector;
+typedef Eigen::Matrix<Complex, Eigen::Dynamic, 1> Vector;
 typedef Eigen::SparseMatrix<Complex> Matrix;
+
+inline constexpr int pow2(int exp) {
+    return (exp == 0) ? 1 : 2 * pow2(exp - 1);
+}
+
+void printBin(int N, int BITS) {
+    for(int i = BITS - 1 ; i >= 0; i--) {
+        if((N >> i) & 0x1) {
+            putchar('1');
+        }
+        else {
+            putchar('0');
+        }
+    }
+}
 
 //return |0>
 Vector zero(void) {
@@ -15,7 +30,7 @@ Vector zero(void) {
 
 //return |1>
 Vector one(void) {
-    Vector<T> result(2);
+    Vector result(2);
     result << 0.0, 1.0;
     return result;
 }
